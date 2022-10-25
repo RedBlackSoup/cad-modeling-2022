@@ -19,6 +19,9 @@
     <Filter Include="resources">
       <UniqueIdentifier>{1d738d34-a0bf-433e-84d7-cf06a7311782}</UniqueIdentifier>
     </Filter>
+    <Filter Include="kernel">
+      <UniqueIdentifier>{f04578d0-7b81-47ea-9c0d-33347ccfbdb4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basicsource\constants.h">
@@ -150,6 +153,9 @@
     <ClInclude Include="objects-student\suger.h">
       <Filter>objects-student</Filter>
     </ClInclude>
+    <ClInclude Include="kernel\HeMesh.h">
+      <Filter>kernel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="basicsource\main.cpp">
@@ -271,6 +277,9 @@
     </ClCompile>
     <ClCompile Include="objects-student\suger.cpp">
       <Filter>objects-student</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\HeMesh.cpp">
+      <Filter>kernel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
