@@ -1,6 +1,5 @@
 // =========================================================================================
-// KXC354 - Computer Graphics & Animation - 2013
-// Assignment 1 & 2
+
 // 3D Engine Code
 // =========================================================================================
 //
@@ -28,20 +27,15 @@
 // #includes for geometry
 #include "sweep.h"
 #include "extrusion.h"
-#include "cube.h"
-#include "sphere.h"
-#include "torus.h"
 #include "terrain.h"
 #include "billboard.h"
 #include "plane.h"
 #include "tsphere.h"
-#include "cylinder.h"
-#include "disc.h"
-#include "cart.h"
-#include "tcylinder.h"
-#include "joint.h"
-#include "sister.h"
+
+
+#include "ShapeAdaptor.h"
 #include "plane.h"
+#include "RbsMesh.h"
 ////
 
 // -----------------------------------------------------------------------------------------
@@ -66,15 +60,13 @@ typedef vector<object3d*>::iterator shapeVectorIterator;
 // -----------------------------------------------------------------------------------------
 
 // shapes
-cart* porter;
+
 plane* ground;
-joint* people1;
-sister* people2;
+
 // some lights
 light *ambient, *light0, *light1, *light2;
 
-snd* s;
-
+ShapeAdaptor* cad1, *cad2, *cad3;
 
 bool sce1 = false, sce2 = false, sce3 = false, sce4 = false, sce5 = false;
 
@@ -90,7 +82,6 @@ bool sce1 = false, sce2 = false, sce3 = false, sce4 = false, sce5 = false;
 
 void constructScene()
 {
-	s = new snd("ost.ogg");
 	// create the lights first
 	ambient = new light(GL_LIGHT_MODEL_AMBIENT);
 	light0 = new light(GL_LIGHT0);
@@ -102,14 +93,26 @@ void constructScene()
 	ground->setPosition(0, -1.5, 0);
 	gSky = new skybox("sky30-");
 	
+	// run the kernel
+	std::cout << "run the kernel" << std::endl;
+	RbsMesh rHandle;
+	auto cube1 = rHandle.testSweep();
 
-	people1 = new joint();
-	people1->setPosition(0.0, 1.85, 0.8);
+	cad1 = new ShapeAdaptor(cube1);
 
-	people2 = new sister();
-	people2->setPosition(0.0, 1.35, 2.4);
+	auto cube2 = rHandle.buildCube();
 
-	porter = new cart();
+	cad2 = new ShapeAdaptor(cube2);
+	cad2->setColor(0.8, 0.05, 0.05);
+	cad2->setPosition(5, 0, 0);
+
+	auto cube3 = rHandle.build2ring();
+	
+	rHandle.printSolid(cube3);
+	cad3 = new ShapeAdaptor(cube3);
+	cad3->setColor(0.05, 0.05, 0.8);
+	cad3->setPosition(10, 0, 0);
+
 }
 
 // -----------------------------------------------------------------------------------------
@@ -162,125 +165,125 @@ void animateForNextFrame(float time, long frame)
 	//people1->setPosition(4 * sin_d(time * 90), 0, 4 * cos_d(time * 90));
 	//people2->setPosition(4 * sin_d(time * 90), 0, 4 * cos_d(time * 90));
 
-	gCamera.setTarget(people2);
-	
-	people1->connect(porter);
-	people2->connect(porter);
+	//gCamera.setTarget(people2);
+	//
+	//people1->connect(porter);
+	//people2->connect(porter);
 
-	//gCamera.setPosition(5, 2,  - 2);
-	porter->setPosition(0, 0, -(time) * 2);
-	if (time <= 1) {
-		porter->hide();
-		people1->hide();
-		people2->hide();
-	}
-	else {
-		porter->show();
-		people1->show();
-		people2->show();
-	}
-	if (time <= 2)
-		gCamera.setPosition(15, 15, -15);
-		
-	if (time >= 2 && !s->isPlaying()) {
-		s->startSound();
-	}
+	////gCamera.setPosition(5, 2,  - 2);
+	//porter->setPosition(0, 0, -(time) * 2);
+	//if (time <= 1) {
+	//	porter->hide();
+	//	people1->hide();
+	//	people2->hide();
+	//}
+	//else {
+	//	porter->show();
+	//	people1->show();
+	//	people2->show();
+	//}
+	//if (time <= 2)
+	//	gCamera.setPosition(15, 15, -15);
+	//	
+	//if (time >= 2 && !s->isPlaying()) {
+	//	s->startSound();
+	//}
 
-	if (time >= 2 && time<=13) {
-		if (sce1 == false) {
-			sce1 = true;
-			// do something
+	//if (time >= 2 && time<=13) {
+	//	if (sce1 == false) {
+	//		sce1 = true;
+	//		// do something
 
-		}
-		gCamera.setPosition(5, 2, -2-(time)*2);
-		gCamera.setTarget(porter->getPosition().data[0], porter->getPosition().data[1] + 2, porter->getPosition().data[2] + 1);//1
-	}
-	if (time >= 2 && time <= 4)
-		people2->head->setOffset(0, 0.02 * cos_d((time-2) * 1080), 0);
+	//	}
+	//	gCamera.setPosition(5, 2, -2-(time)*2);
+	//	gCamera.setTarget(porter->getPosition().data[0], porter->getPosition().data[1] + 2, porter->getPosition().data[2] + 1);//1
+	//}
+	//if (time >= 2 && time <= 4)
+	//	people2->head->setOffset(0, 0.02 * cos_d((time-2) * 1080), 0);
 
-	if (time >= 4 && time <= 7)
-		people2->head->setRotation('y', 180-(time - 4) * 15);
+	//if (time >= 4 && time <= 7)
+	//	people2->head->setRotation('y', 180-(time - 4) * 15);
 
-	if (time >= 7 && time <= 10)
-		people2->elbow1->setRotation('x', 60 + 10 * (time - 7));
+	//if (time >= 7 && time <= 10)
+	//	people2->elbow1->setRotation('x', 60 + 10 * (time - 7));
 
-	if (time >= 8 && time <= 10)
-		people2->head->setOffset(0, 0.02 * cos_d((time - 8) * 1080), 0);
+	//if (time >= 8 && time <= 10)
+	//	people2->head->setOffset(0, 0.02 * cos_d((time - 8) * 1080), 0);
 
-	if (time >= 10 && time <= 10.5)
-		people1->head->setRotation('y', 180 - (time - 10) * 140);
+	//if (time >= 10 && time <= 10.5)
+	//	people1->head->setRotation('y', 180 - (time - 10) * 140);
 
-	if (time >= 10.5 && time <= 11)
-		people1->head->setRotation('y', 110 + (time - 10.5) * 140);
+	//if (time >= 10.5 && time <= 11)
+	//	people1->head->setRotation('y', 110 + (time - 10.5) * 140);
 
-	if (time >= 11 && time <= 12) {
-		people2->elbow1->setRotation('x', (time - 11) * 3600);
-		people2->elbow2->setRotation('x', (time - 11) * 3600);
-	}
-	
+	//if (time >= 11 && time <= 12) {
+	//	people2->elbow1->setRotation('x', (time - 11) * 3600);
+	//	people2->elbow2->setRotation('x', (time - 11) * 3600);
+	//}
+	//
 
-	if (time >= 12 && time <=19) {
-		if (sce2 == false) {
-			sce2 = true;
-			people2->elbow1->setOffset(0, -0.3, 0.3);
-			people2->elbow2->setOffset(0, -0.3, 0.3);
-			people2->head->setRotation('y', 180);
+	//if (time >= 12 && time <=19) {
+	//	if (sce2 == false) {
+	//		sce2 = true;
+	//		people2->elbow1->setOffset(0, -0.3, 0.3);
+	//		people2->elbow2->setOffset(0, -0.3, 0.3);
+	//		people2->head->setRotation('y', 180);
 
-		}
-		gCamera.setPosition(2, 2.5, 1.1 - (time) * 2);
-		gCamera.setTarget(porter->getPosition().data[0], porter->getPosition().data[1] + 2, porter->getPosition().data[2] + 2.4);
-
-	}
-	if (time >= 13.0 && time <= 17)
-		people2->head->setOffset(0, 0.02 * cos_d((time - 12) * 1080), 0);
+	//	}
+	//	gCamera.setPosition(2, 2.5, 1.1 - (time) * 2);
+	//	gCamera.setTarget(porter->getPosition().data[0], porter->getPosition().data[1] + 2, porter->getPosition().data[2] + 2.4);
 
 	//}
-	if (time >= 19 && time <= 23) {
-		if (sce3 == false) {
-			sce3 = true;
-		}
-		gCamera.setPosition(-20, 30, 1.1 - (time) * 2);
-		gCamera.setTarget(porter->getPosition().data[0], porter->getPosition().data[1] + 2, porter->getPosition().data[2] + 2.4);
-	}
+	//if (time >= 13.0 && time <= 17)
+	//	people2->head->setOffset(0, 0.02 * cos_d((time - 12) * 1080), 0);
 
-	if (time >= 23 && time <= 26) {
-		if (sce4 == false) {
-			sce4 = true;
-			// do something
+	////}
+	//if (time >= 19 && time <= 23) {
+	//	if (sce3 == false) {
+	//		sce3 = true;
+	//	}
+	//	gCamera.setPosition(-20, 30, 1.1 - (time) * 2);
+	//	gCamera.setTarget(porter->getPosition().data[0], porter->getPosition().data[1] + 2, porter->getPosition().data[2] + 2.4);
+	//}
 
-		}
-		gCamera.setPosition(5, 2, -2 - (time) * 2);
-		gCamera.setTarget(porter->getPosition().data[0], porter->getPosition().data[1] + 2, porter->getPosition().data[2] + 1);//1
-		people2->head->setRotation('y', 180 - cos_d(360*(time - 23)) * 10);
+	//if (time >= 23 && time <= 26) {
+	//	if (sce4 == false) {
+	//		sce4 = true;
+	//		// do something
 
-	}
-		
+	//	}
+	//	gCamera.setPosition(5, 2, -2 - (time) * 2);
+	//	gCamera.setTarget(porter->getPosition().data[0], porter->getPosition().data[1] + 2, porter->getPosition().data[2] + 1);//1
+	//	people2->head->setRotation('y', 180 - cos_d(360*(time - 23)) * 10);
+
+	//}
+	//	
 
 
 
-	if (time >= 26&& time <= 30) {
-		if (sce5 == false) {
-			sce5 = true;
+	//if (time >= 26&& time <= 30) {
+	//	if (sce5 == false) {
+	//		sce5 = true;
 
-			people2->elbow1->setRotation('z', 15, 'x', 60);
-			people2->elbow2->setRotation('z', -15, 'x', 60);
-			people2->elbow1->setOffset(0, 0, 0);
-			people2->elbow2->setOffset(0, 0, 0);
-		}
-		gCamera.setPosition(2, 2.5, 1.1 - (time) * 2);
-		gCamera.setTarget(porter->getPosition().data[0], porter->getPosition().data[1] + 2, porter->getPosition().data[2] + 2.4);
+	//		people2->elbow1->setRotation('z', 15, 'x', 60);
+	//		people2->elbow2->setRotation('z', -15, 'x', 60);
+	//		people2->elbow1->setOffset(0, 0, 0);
+	//		people2->elbow2->setOffset(0, 0, 0);
+	//	}
+	//	gCamera.setPosition(2, 2.5, 1.1 - (time) * 2);
+	//	gCamera.setTarget(porter->getPosition().data[0], porter->getPosition().data[1] + 2, porter->getPosition().data[2] + 2.4);
 
-	}
-	if (time >= 26 && time <= 26.7)
-		people2->head->setOffset(0, 0.02 * cos_d((time - 12) * 1080), 0);
+	//}
+	//if (time >= 26 && time <= 26.7)
+	//	people2->head->setOffset(0, 0.02 * cos_d((time - 12) * 1080), 0);
 
-	if (time >= 27.2 && time <= 30) {
-		people2->head->setRotation('y',180,'x',(time-27.2)*10);
-		people2->hand1->setRotation('x', 30 + (time - 27.2) * 8, 'z', -(time - 27.2) * 25);
-		people2->hand2->setRotation('x', 30 + (time - 27.2) * 8, 'z', (time - 27.2) * 25);
-	}
-	if (time >= 30)
-		gProgramMode = kpmFinished;
+	//if (time >= 27.2 && time <= 30) {
+	//	people2->head->setRotation('y',180,'x',(time-27.2)*10);
+	//	people2->hand1->setRotation('x', 30 + (time - 27.2) * 8, 'z', -(time - 27.2) * 25);
+	//	people2->hand2->setRotation('x', 30 + (time - 27.2) * 8, 'z', (time - 27.2) * 25);
+	//}
+	//if (time >= 30)
+	//	gProgramMode = kpmFinished;
 }
 
 

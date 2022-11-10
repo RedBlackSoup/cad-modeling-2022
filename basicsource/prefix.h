@@ -1,6 +1,4 @@
 // =========================================================================================
-// KXC354 - Computer Graphics & Animation - 2013
-// Assignment 1 & 2
 // 3D Engine Code
 // =========================================================================================
 //
@@ -11,7 +9,7 @@
 // this includes the prefix headers
 // this file is precompiled to provide faster compilations
 
-#include <glew.h>
+#include <gl/glew.h>
 #include <SOIL.h>
 
 
@@ -28,13 +26,11 @@
 	#include <GLUT/glut.h>
 	#include <sys/param.h>
 #endif
-
-
 #ifdef _WIN32
 	#include <windows.h>
-	#include <GL/gl.h>
-	#include <GL/glu.h>
-	#include <GL/glut.h>
+	#include <gl/GL.h>
+	#include <gl/glu.h>
+	#include <gl/glut.h>
 	#include <time.h>
 	// comment out the following lines if you do not have QuickTime and the QuickTime SDK installed on Windows
 	// this will disable texture and sound support

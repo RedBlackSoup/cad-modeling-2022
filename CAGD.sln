@@ -1,17 +1,29 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C++ Express 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "assig2", "assig2.vcxproj", "{241E4B13-F5BF-4F2C-855B-9B6814D30AE4}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32630.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CAGD", "CAGD.vcxproj", "{9E75953F-6AE7-47A1-8A18-3623DE1BBC68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
 		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{241E4B13-F5BF-4F2C-855B-9B6814D30AE4}.Release|Win32.ActiveCfg = Release|Win32
-		{241E4B13-F5BF-4F2C-855B-9B6814D30AE4}.Release|Win32.Build.0 = Release|Win32
+		{9E75953F-6AE7-47A1-8A18-3623DE1BBC68}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9E75953F-6AE7-47A1-8A18-3623DE1BBC68}.Debug|Win32.Build.0 = Debug|Win32
+		{9E75953F-6AE7-47A1-8A18-3623DE1BBC68}.Debug|x64.ActiveCfg = Debug|Win32
+		{9E75953F-6AE7-47A1-8A18-3623DE1BBC68}.Release|Win32.ActiveCfg = Release|Win32
+		{9E75953F-6AE7-47A1-8A18-3623DE1BBC68}.Release|Win32.Build.0 = Release|Win32
+		{9E75953F-6AE7-47A1-8A18-3623DE1BBC68}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3F76A53E-BB09-4480-BA44-71C9A82B96B0}
 	EndGlobalSection
 EndGlobal

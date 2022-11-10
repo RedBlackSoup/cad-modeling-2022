@@ -1,6 +1,5 @@
 // =========================================================================================
-// KXC354 - Computer Graphics & Animation - 2013
-// Assignment 1 & 2
+
 // 3D Engine Code
 // =========================================================================================
 //
@@ -28,6 +27,7 @@
 #include "viewfrustum.h"
 #include "Noise3DTexture.h"
 
+#include "RbsMesh.h"
 #include "main.h"					// function prototypes for local functions
 
 
@@ -122,7 +122,7 @@ int main(int argc, char** argv)
 	glutInitWindowPosition(100, 100);
 	
 	glutInitDisplayString("double rgb depth=32");
-	glutCreateWindow("Assignment 2");				// comment out for initial full-screen
+	glutCreateWindow("Solid Model");				// comment out for initial full-screen
 	
 	GLenum err = glewInit();
 	if (GLEW_OK != err)
@@ -434,8 +434,6 @@ void drawScene(void)
 	glutSwapBuffers();
 
 }
-
-
 
 
 // -----------------------------------------------------------------------------------------

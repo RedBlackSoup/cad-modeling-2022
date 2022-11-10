@@ -1,0 +1,4 @@
+E:\Code\cad modeling 2022\build\CAGD.vcxproj.CopyComplete
+E:\Code\cad modeling 2022\build\CAGD.exe
+E:\Code\cad modeling 2022\build\glew32.dll
+E:\Code\cad modeling 2022\build\freeglut.dll

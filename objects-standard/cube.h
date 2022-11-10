@@ -1,6 +1,4 @@
 // =========================================================================================
-// KXC354 - Computer Graphics & Animation - 2013
-// Assignment 1 & 2
 // 3D Engine Code
 // =========================================================================================
 //
@@ -8,14 +6,10 @@
 //
 // cube.h
 //
-// This file declares the class for cube objects, based on the
-// generic 3D object
-
+// This file declares the class for cube objects, based on the generic 3D object
 
 #ifndef _CUBE_H
 #define _CUBE_H
-
-
 
 // -----------------------------------------------------------------------------------------
 // includes
@@ -23,20 +17,14 @@
 #include "face.h"
 #include "object3d.h"
 
-
-
-
 // -----------------------------------------------------------------------------------------
 // class declaration
 // -----------------------------------------------------------------------------------------
 
 class cube : public object3d
 {
-	public:
-						cube();
-
+public:
+	cube();
 };
 
-
 #endif // _CUBE_H
-
