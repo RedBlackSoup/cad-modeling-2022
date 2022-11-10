@@ -12,6 +12,8 @@
 
 ![image-20221110233128458](./assets/image-20221110233128458.png)
 
+主要的欧拉操作和扫掠操作的代码在./kernel文件夹中，分别定义在EulerOp.h和RbsMesh.h文件中。
+
 #### 如何使用
 
 项目的部分依赖已在./support文件夹中，并且已经在vs项目中配置好了，但不包括opengl，glfw和freeglut，因此推荐使用vcpkg安装。安装步骤如下：
